@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using GameDevDemo.View;
-namespace GameDevDemo
+namespace GameDevDemo.Model
 {
 	public class Enemy
 	{
