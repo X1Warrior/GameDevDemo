@@ -11,7 +11,15 @@ namespace SampleGame.Controller
 	/// This is the main type for your game.
 	/// </summary>
 	public class Game1 : Game
-	{// Keyboard states used to determine key presses
+	{
+		// Image used to display the static background
+		private Texture2D mainBackground;
+
+		// Parallaxing Layers
+		private ParallaxingBackground bgLayer1;
+		private ParallaxingBackground bgLayer2;
+
+		// Keyboard states used to determine key presses
 		private KeyboardState currentKeyboardState;
 		private KeyboardState previousKeyboardState;
 		// Gamepad states used to determine button presses
@@ -39,6 +47,8 @@ namespace SampleGame.Controller
 		protected override void Initialize()
 		{
 			// TODO: Add your initialization logic here
+			bgLayer1 = new ParallaxingBackground();
+			bgLayer2 = new ParallaxingBackground();
 
 			base.Initialize();
 			player = new Player();
@@ -59,6 +69,11 @@ namespace SampleGame.Controller
 
 			Vector2 playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
 			player.Initialize(playerAnimation, playerPosition);
+			// Load the parallaxing background
+			bgLayer1.Initialize(Content, "Texture/bgLayer1", GraphicsDevice.Viewport.Width, -1);
+			bgLayer2.Initialize(Content, "Texture/bgLayer2", GraphicsDevice.Viewport.Width, -2);
+
+			mainBackground = Content.Load<Texture2D>("Texture/mainbackground");
 
 			//TODO: use this.Content to load your game content here 
 		}
@@ -70,8 +85,6 @@ namespace SampleGame.Controller
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime)
 		// Load the player resources 
-
-
 		{
 			// For Mobile devices, this logic will close the Game when the Back button is pressed
 			// Exit() is obsolete on iOS
@@ -93,31 +106,41 @@ namespace SampleGame.Controller
 			//Update the player
 			UpdatePlayer(gameTime);
 			player.Update(gameTime);
+			// Update the parallaxing background
+			bgLayer1.Update();
+			bgLayer2.Update();
+
 			base.Update(gameTime);
-	}
+		}
 
-	/// <summary>
-	/// This is called when the game should draw itself.
-	/// </summary>
-	/// <param name="gameTime">Provides a snapshot of timing values.</param>
-	protected override void Draw(GameTime gameTime)
-	{
-		// Start drawing 
-		spriteBatch.Begin();
-		graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
+		/// <summary>
+		/// This is called when the game should draw itself.
+		/// </summary>
+		/// <param name="gameTime">Provides a snapshot of timing values.</param>
+		protected override void Draw(GameTime gameTime)
+		{
+			// Start drawing 
+			spriteBatch.Begin();
+			graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
-		//TODO: Add your drawing code here
+			//TODO: Add your drawing code here
 
-		base.Draw(gameTime);
-		// Draw the Player 
-		player.Draw(spriteBatch);
-		// Stop drawing 
-		spriteBatch.End();
+			base.Draw(gameTime);
+			spriteBatch.Draw(mainBackground, Vector2.Zero, Color.White);
+
+			// Draw the moving background
+			bgLayer1.Draw(spriteBatch);
+			bgLayer2.Draw(spriteBatch);
+			// Draw the Player 
+			player.Draw(spriteBatch);
+			// Stop drawing 
+			spriteBatch.End();
 
 
-	}
+		}
 		private void UpdatePlayer(GameTime gameTime)
 		{
+			player.Update(gameTime);
 
 			// Get Thumbstick Controls
 			player.Position.X += currentGamePadState.ThumbSticks.Left.X * playerMoveSpeed;

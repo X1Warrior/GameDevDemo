@@ -1,13 +1,14 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics
+using Microsoft.Xna.Framework.Graphics;
 namespace GameDevDemo.View
 {
 	public class ParallaxingBackground
 	{
 		public ParallaxingBackground()
-		{
+		{ 
+		}
 // The image representing the parallaxing background
 private Texture2D texture;
 
@@ -75,4 +76,4 @@ public void Draw(SpriteBatch spriteBatch)
 
 		}
 	}
-}
+
