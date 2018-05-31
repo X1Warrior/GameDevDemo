@@ -82,7 +82,7 @@ namespace GameDevDemo.Model
 			health = 10;
 
 			// Set the amount of damage the enemy can do
-			damage = 10;
+			damage = 20;
 
 			// Set how fast the enemy moves
 			enemyMoveSpeed = 6f;

@@ -6,20 +6,20 @@ using GameDevDemo.View;
 namespace GameDevDemo.Model
 
 {
-	public class Player
+	public class Player3
 	{
 		public Texture2D texture, healthTexture;
 		public Rectangle boundingBox, healthRectangle;
 		public Vector2 position, healthBarPosition;
 
-		public Player()
+		public Player3()
 		{
 		}
 
 		// Initialize the player
 		public void Initialize(Animation animation, Vector2 position, Texture2D healthTexture)
 		{
-			playerAnimation = animation;
+			player3Animation = animation;
 
 			// Set the starting position of the player around the middle of the screen and to the back
 			Position = position;
@@ -27,7 +27,7 @@ namespace GameDevDemo.Model
 			// Set the player to be active
 			Active = true;
 
-			healthBarPosition = new Vector2(50, 50);
+			healthBarPosition = new Vector2(500, 50);
 
 			this.healthTexture = healthTexture;
 
@@ -39,8 +39,8 @@ namespace GameDevDemo.Model
 		// Update the player animation
 		public void Update(GameTime gameTime)
 		{
-			playerAnimation.Position = Position;
-			playerAnimation.Update(gameTime);
+			player3Animation.Position = Position;
+			player3Animation.Update(gameTime);
 			healthRectangle = new Rectangle((int)healthBarPosition.X, (int)healthBarPosition.Y, health, 25);
 		}
 
@@ -48,16 +48,16 @@ namespace GameDevDemo.Model
 		// Draw the player
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			playerAnimation.Draw(spriteBatch);
+			player3Animation.Draw(spriteBatch);
 			spriteBatch.Draw(healthTexture, healthRectangle, Color.White);
 		}
 
 		// Animation representing the player
-		private Animation playerAnimation;
-		public Animation PlayerAnimation
+		private Animation player3Animation;
+		public Animation Player3Animation
 		{
-			get { return playerAnimation; }
-			set { playerAnimation = value; }
+			get { return player3Animation; }
+			set { player3Animation = value; }
 		}
 
 
@@ -85,13 +85,13 @@ namespace GameDevDemo.Model
 		// Get the width of the player ship
 		public int Width
 		{
-			get { return playerAnimation.FrameWidth; }
+			get { return player3Animation.FrameWidth; }
 		}
 
 		// Get the height of the player ship
 		public int Height
 		{
-			get { return playerAnimation.FrameHeight; }
+			get { return player3Animation.FrameHeight; }
 		}
 	}
 }
